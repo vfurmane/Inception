@@ -9,12 +9,14 @@ RUN set -eux; \
 												openssl;
 
 WORKDIR /usr/src
-COPY ./ ./
+COPY ./sites-available/ ./sites-available/
 
 RUN set -eux; \
 	cp -f sites-available/default /etc/nginx/sites-available/default; \
 	ln -fs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default; \
 	mkdir -p /etc/nginx/ssl;
+
+COPY docker-entrypoint.sh .
 
 ENTRYPOINT [ "./docker-entrypoint.sh" ]
 CMD [ "nginx", "-g", "daemon off;" ]
