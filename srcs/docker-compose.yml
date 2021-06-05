@@ -1,11 +1,11 @@
 version: "3.3"
 services:
     nginx:
-        build: ./srcs/config/nginx
+        build: ./config/nginx
         ports:
             - "80:80"
             - "443:443"
     mariadb:
-        build: ./srcs/config/mariadb
+        build: ./config/mariadb
         env_file:
-            - ./srcs/.env
+            - ./.env
