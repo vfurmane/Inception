@@ -2,6 +2,8 @@ version: "3.3"
 services:
     nginx:
         build: ./config/nginx
+        volumes:
+            - /home/vfurmane/data/wordpress:/var/www/html
         ports:
             - "80:80"
             - "443:443"
@@ -9,3 +11,7 @@ services:
         build: ./config/mariadb
         env_file:
             - ./.env
+    wordpress:
+        build: ./config/wordpress
+        volumes:
+            - /home/vfurmane/data/wordpress:/var/www/html
