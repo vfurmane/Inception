@@ -2,6 +2,7 @@ version: "3.3"
 services:
     nginx:
         build: ./config/nginx
+        image: nginx
         volumes:
             - /home/vfurmane/data/wordpress:/var/www/html
         ports:
@@ -12,11 +13,13 @@ services:
         restart: "on-failure"
     mariadb:
         build: ./config/mariadb
+        image: mariadb
         env_file:
             - ./.env
         restart: "on-failure"
     wordpress:
         build: ./config/wordpress
+        image: wordpress
         volumes:
             - /home/vfurmane/data/wordpress:/var/www/html
         depends_on:
