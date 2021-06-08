@@ -9,13 +9,16 @@ services:
             - "443:443"
         depends_on:
             - wordpress
+        restart: "on-failure"
     mariadb:
         build: ./config/mariadb
         env_file:
             - ./.env
+        restart: "on-failure"
     wordpress:
         build: ./config/wordpress
         volumes:
             - /home/vfurmane/data/wordpress:/var/www/html
         depends_on:
             - mariadb
+        restart: "on-failure"
