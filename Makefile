@@ -6,23 +6,27 @@
 #    By: vfurmane <vfurmane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/02 11:06:52 by vfurmane          #+#    #+#              #
-#    Updated: 2021/06/02 11:10:44 by vfurmane         ###   ########.fr        #
+#    Updated: 2022/02/06 15:01:49 by vfurmane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= Inception
+FILE	= -f srcs/docker-compose.yml
 
-all:	$(NAME)
+all:	build $(NAME)
+
+build:
+		docker-compose $(FILE) build
 
 $(NAME):
-		docker-compose up
+		docker-compose $(FILE) up
 
 clean:
-		docker-compose stop
+		docker-compose $(FILE) stop
 
 fclean:
-		docker-compose down
+		docker-compose $(FILE) down
 
 re: 	fclean all
 
-.PHONY: all $(NAME) clean fclean re
+.PHONY: all build $(NAME) clean fclean re
