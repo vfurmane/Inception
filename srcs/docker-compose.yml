@@ -3,21 +3,48 @@ services:
     proxy:
         build: proxy
         restart: unless-stopped
+        depends_on:
+            - wordpress
         ports:
             - 443:443
         volumes:
             - wordpress-data:/usr/share/nginx/html
         networks:
-            - backend
+            - proxy
     wordpress:
         build: wordpress
         restart: unless-stopped
+        env_file:
+            - .env
+        environment:
+            WORDPRESS_DB_HOST: database
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
+            WORDPRESS_DB_NAME: wordpress
+        depends_on:
+            - database
         volumes:
             - wordpress-data:/var/www/html
+        networks:
+            - backend
+            - proxy
+    database:
+        build: database
+        restart: unless-stopped
+        env_file:
+            - .env
+        environment:
+            MARIADB_USER: wordpress
+            MARIADB_RANDOM_ROOT_PASSWORD: yes
+            MARIADB_DATABASE: wordpress
+        volumes:
+            - wordpress-database:/var/lib/mysql
         networks:
             - backend
 
 volumes:
     wordpress-data:
+    wordpress-database:
 networks:
     backend:
+    proxy:
