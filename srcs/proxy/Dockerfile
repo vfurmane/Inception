@@ -1,5 +1,10 @@
 FROM nginx:1.21.6-alpine
 
+ENV TZ=Europe/Paris
+RUN set -eux; \
+	apk add --no-cache tzdata; \
+	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apk add openssl;
 
 RUN set -eux; \
