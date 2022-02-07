@@ -2,5 +2,22 @@ version: "3.3"
 services:
     proxy:
         build: proxy
+        restart: unless-stopped
         ports:
             - 443:443
+        volumes:
+            - wordpress-data:/usr/share/nginx/html
+        networks:
+            - backend
+    wordpress:
+        build: wordpress
+        restart: unless-stopped
+        volumes:
+            - wordpress-data:/var/www/html
+        networks:
+            - backend
+
+volumes:
+    wordpress-data:
+networks:
+    backend:
