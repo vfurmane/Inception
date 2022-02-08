@@ -1,7 +1,5 @@
 FROM alpine:3.14.0
 
-ENV NGINX_VERSION 1.21.6
-
 ENV TZ=Europe/Paris
 RUN set -eux; \
 	apk add --no-cache tzdata; \
