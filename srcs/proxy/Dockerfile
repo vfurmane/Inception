@@ -1,18 +1,19 @@
-FROM nginx:1.21.6-alpine
+FROM alpine:3.14.0
+
+ENV NGINX_VERSION 1.21.6
 
 ENV TZ=Europe/Paris
 RUN set -eux; \
 	apk add --no-cache tzdata; \
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apk add openssl;
-
 RUN set -eux; \
-	mkdir -p /etc/nginx/vfurmane.42.fr; \
-	cd /etc/nginx/vfurmane.42.fr; \
-	openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out /etc/nginx/vfurmane.42.fr/server.key; \
-	chmod 400 server.key; \
-	openssl req -new -subj "/C=FR/ST=Paris/L=Paris/O=Dis/CN=vfurmane.42.fr" -sha256 -key server.key -out /etc/nginx/vfurmane.42.fr/server.csr; \
-	openssl x509 -req -days 1095 -in server.csr -signkey /etc/nginx/vfurmane.42.fr/server.key -out /etc/nginx/vfurmane.42.fr/server.crt;
+	apk add --no-cache openssl ca-certificates nginx; \
+	ln -sf /dev/stdout /var/log/nginx/access.log; \
+	ln -sf /dev/stder /var/log/nginx/error.log;
 
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY docker-entrypoint.sh /
+COPY default.conf /etc/nginx/http.d/default.conf
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["nginx", "-g", "daemon off;"]
