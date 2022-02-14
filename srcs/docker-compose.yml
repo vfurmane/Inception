@@ -56,7 +56,17 @@ services:
 
 volumes:
     wordpress-data:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/vfurmane/data/wordpress-data
+            o: bind
     wordpress-database:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/vfurmane/data/wordpress-database
+            o: bind
 networks:
     backend:
     proxy:
