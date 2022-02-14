@@ -8,5 +8,6 @@ then
 	wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_PASSWORD --porcelain --path=/var/www/html
 	touch /var/www/html/.wp-ok
 fi
+chown -R www-data:www-data /var/www/html
 
 exec "$@"
