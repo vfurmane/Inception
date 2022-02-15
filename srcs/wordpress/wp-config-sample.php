@@ -37,6 +37,9 @@ define( 'DB_CHARSET', 'utf8mb4' );
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
+/** The redis cache host */
+define( 'WP_REDIS_HOST', getenv('WORDPRESS_REDIS_HOST') );
+
 /**#@+
  * Authentication unique keys and salts.
  *

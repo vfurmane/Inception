@@ -29,6 +29,7 @@ services:
             WORDPRESS_ADMIN_EMAIL: vfurmane@vfurmane.42.fr
             WORDPRESS_USER: honore.balzac
             WORDPRESS_EMAIL: honore.balzac@vfurmane.42.fr
+            WORDPRESS_REDIS_HOST: cache
         depends_on:
             - database
         volumes:
@@ -53,6 +54,11 @@ services:
             MARIADB_DATABASE: wordpress
         volumes:
             - wordpress-database:/var/lib/mysql
+        networks:
+            - backend
+    cache:
+        build: cache
+        restart: unless-stopped
         networks:
             - backend
 
