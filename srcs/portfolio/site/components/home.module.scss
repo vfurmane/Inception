@@ -1,0 +1,99 @@
+@import '../styles/variables.scss';
+
+.container {
+	margin-top: 64px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.favicon {
+	margin: 16px 0;
+
+	border-radius: 50%;
+	width: 192px;
+	height: 192px;
+}
+
+.my_info {
+	text-align: center;
+}
+
+.icons_container {
+	margin: 12px 0;
+}
+
+.icon {
+	margin: 0 12px;
+}
+
+.icon_img {
+	width: 36px;
+	height: 36px;
+}
+
+@media screen and (min-width: 768px) {
+	
+	.container {
+		flex-direction: row-reverse;
+		justify-content: center;
+		align-items: flex-start;
+	}
+
+	.favicon {
+		margin: 0;
+		width: 288px;
+		height: 288px;
+	}
+
+	.my_info {
+		margin-right: 72px;
+	
+		text-align: left;
+	}
+
+	.icons_container {
+		margin-top: 64px;
+	}
+
+	.icon {
+		margin: 0 12px;
+	}
+
+	.icon_img {
+		width: 36px;
+		height: 36px;
+	}
+
+}
+
+@media screen and (min-width: 1152px) {
+	
+	.container {
+		margin-bottom: 0;
+	}
+
+	.favicon {
+		width: 384px;
+		height: 384px;
+	}
+
+	.my_info {
+		margin-right: 96px;
+	}
+
+	.icons_container {
+		margin-top: 96px;
+	}
+
+	.icon {
+		margin: 0 16px;
+	}
+
+	.icon_img {
+		width: 48px;
+		height: 48px;
+	}
+
+}

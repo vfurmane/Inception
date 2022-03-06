@@ -71,6 +71,11 @@ services:
             - 10090-10100:10090-10100
         volumes:
             - wordpress-data:/home/${FTP_USER}
+    portfolio:
+        build: portfolio
+        restart: unless-stopped
+        ports:
+            - 3000:3000
 
 volumes:
     wordpress-data:

@@ -1,0 +1,72 @@
+@import '../styles/variables.scss';
+
+.top_bar {
+	position: fixed;
+	top: 0;
+
+	width: 100%;
+	box-shadow: 0 4px 16px rgba($on-surface-color, 0.25);
+	
+	display: block;
+
+	background-color: rgba($surface-color, 0.8);
+}
+
+.sections_list {
+	margin: 0;
+	padding: 0 22px;
+	width: 100%;
+	height: 48px;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	list-style-type: none;
+}
+
+.sections_list .section {
+	display: inline;
+}
+
+@media only screen and (max-width: 1000px) and (orientation: landscape) {
+	
+	.sections_list {
+		padding: 0 64px;
+	}
+
+}
+
+@media screen and (min-width: 768px) {
+
+	.sections_list {
+		justify-content: flex-start;
+	}
+
+	.sections_list .section {
+		margin: 0 24px;
+	}
+
+}
+
+@media screen and (min-width: 1152px) {
+
+	.sections_list {
+		height: 72px;
+		padding: 0 36px;
+	}
+
+	.sections_list .section {
+		margin: 0 48px;
+	}
+
+}
+@media screen and (min-width: 1440px) {
+
+	.sections_list {
+		padding: 0;
+		margin: 0 auto;
+		width: 1248px;
+	}
+
+}
