@@ -11,6 +11,7 @@ services:
             - 443:443
         volumes:
             - wordpress-data:/usr/share/nginx/html
+            - adminer-data:/usr/share/nginx/adminer
         networks:
             - proxy
     wordpress:
@@ -76,6 +77,16 @@ services:
         restart: unless-stopped
         ports:
             - 3000:3000
+    adminer:
+        build: adminer
+        restart: unless-stopped
+        depends_on:
+            - database
+        volumes:
+            - adminer-data:/var/www/html
+        networks:
+            - backend
+            - proxy
 
 volumes:
     wordpress-data:
@@ -83,6 +94,12 @@ volumes:
         driver_opts:
             type: none
             device: /home/vfurmane/data/wordpress-data
+            o: bind
+    adminer-data:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/vfurmane/data/adminer-data
             o: bind
     wordpress-database:
         driver: local
