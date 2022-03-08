@@ -87,6 +87,21 @@ services:
         networks:
             - backend
             - proxy
+    grafana:
+        build: grafana
+        volumes:
+            - grafana-data:/var/lib/grafana
+        networks:
+            - backend
+            - proxy
+              #    nextcloud:
+              #        build: nextcloud
+              #        restart: unless-stopped
+              #        depends_on:
+              #            - database
+              #        networks:
+              #            - backend
+              #            - proxy
 
 volumes:
     wordpress-data:
@@ -100,6 +115,12 @@ volumes:
         driver_opts:
             type: none
             device: /home/vfurmane/data/adminer-data
+            o: bind
+    grafana-data:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/vfurmane/data/grafana-data
             o: bind
     wordpress-database:
         driver: local
