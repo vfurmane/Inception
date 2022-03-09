@@ -15,7 +15,7 @@ RUN set -eux; \
 
 RUN set -eux; \
 	mkdir -p /var/www; \
-	wget -O wordpress.tar.gz https://wordpress.org/wordpress-5.9.tar.gz; \
+	wget -O wordpress.tar.gz https://wordpress.org/wordpress-5.9.1.tar.gz; \
 	tar -xzf wordpress.tar.gz -C /var/www; \
 	mv /var/www/wordpress/ /var/www/html; \
 	chown -R www-data:www-data /var/www/html
