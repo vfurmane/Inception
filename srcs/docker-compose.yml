@@ -1,7 +1,8 @@
 version: "3.3"
 services:
-    proxy:
-        build: proxy
+    nginx:
+        build: nginx
+        image: nginx
         restart: unless-stopped
         depends_on:
             - wordpress
@@ -16,11 +17,12 @@ services:
             - proxy
     wordpress:
         build: wordpress
+        image: wordpress
         restart: unless-stopped
         env_file:
             - .env
         environment:
-            WORDPRESS_DB_HOST: database
+            WORDPRESS_DB_HOST: mariadb
             WORDPRESS_DB_USER: wordpress
             WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
             WORDPRESS_DB_NAME: wordpress
@@ -30,16 +32,17 @@ services:
             WORDPRESS_ADMIN_EMAIL: vfurmane@vfurmane.42.fr
             WORDPRESS_USER: honore.balzac
             WORDPRESS_EMAIL: honore.balzac@vfurmane.42.fr
-            WORDPRESS_REDIS_HOST: cache
+            WORDPRESS_REDIS_HOST: redis
         depends_on:
-            - database
+            - mariadb
         volumes:
             - wordpress-data:/var/www/html
         networks:
             - backend
             - proxy
-    database:
-        build: database
+    mariadb:
+        build: mariadb
+        image: mariadb
         restart: unless-stopped
         healthcheck:
             test: ["mysql", "--user=wordpress", "--password=${MARIADB_PASSWORD}", "-e", "SELECT 1;"]
@@ -57,13 +60,15 @@ services:
             - wordpress-database:/var/lib/mysql
         networks:
             - backend
-    cache:
-        build: cache
+    redis:
+        build: redis
+        image: redis
         restart: unless-stopped
         networks:
             - backend
-    ftp:
-        build: ftp
+    vsftpd:
+        build: vsftpd
+        image: vsftpd
         restart: unless-stopped
         env_file:
             - .env
@@ -74,14 +79,16 @@ services:
             - wordpress-data:/home/${FTP_USER}
     portfolio:
         build: portfolio
+        image: portfolio
         restart: unless-stopped
         networks:
             - proxy
     adminer:
         build: adminer
+        image: adminer
         restart: unless-stopped
         depends_on:
-            - database
+            - mariadb
         volumes:
             - adminer-data:/var/www/html
         networks:
@@ -89,6 +96,7 @@ services:
             - proxy
     grafana:
         build: grafana
+        image: grafana
         volumes:
             - grafana-data:/var/lib/grafana
         networks:
