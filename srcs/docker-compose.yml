@@ -94,14 +94,6 @@ services:
         networks:
             - backend
             - proxy
-              #    nextcloud:
-              #        build: nextcloud
-              #        restart: unless-stopped
-              #        depends_on:
-              #            - database
-              #        networks:
-              #            - backend
-              #            - proxy
 
 volumes:
     wordpress-data:
