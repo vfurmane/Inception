@@ -1,4 +1,4 @@
-FROM alpine:3.14
+FROM alpine:3.14.3
 
 RUN set -eux; \
 	apk add --no-cache redis

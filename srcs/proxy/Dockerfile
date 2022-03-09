@@ -1,4 +1,4 @@
-FROM alpine:3.14.0
+FROM alpine:3.14.3
 
 ENV TZ=Europe/Paris
 RUN set -eux; \
