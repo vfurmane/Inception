@@ -1,6 +1,19 @@
 #!/bin/sh
 
-sleep 8
+i=0
+while [ $i -lt 30 ]
+do
+	if mysql --host $WORDPRESS_DB_HOST --user $WORDPRESS_DB_USER --password=$WORDPRESS_DB_PASSWORD
+	then
+		break
+	fi
+	sleep 1
+	i=$(($i + 1))
+done
+if [ $i -ge 30 ]
+then
+	exit 1
+fi
 # Create the Wordpress users
 if ! [ -f /var/www/html/.wp-ok ]
 then
